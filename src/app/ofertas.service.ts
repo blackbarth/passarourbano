@@ -1,5 +1,13 @@
+
 import { Oferta } from './shared/oferta.model';
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+
+
+@Injectable()
 export class OfertasService {
+
+  constructor(private http: HttpClient) { }
 
   public ofertas: Oferta[] =
     [
@@ -55,5 +63,41 @@ export class OfertasService {
 
   public getOfertas(): Array<Oferta> {
     return this.ofertas;
+  }
+
+  public getOfertas2(): Promise<Oferta[]> {
+    return new Promise((resolve, reject) => {
+      //algum tipo de processamento, que ao finalizar chama a funcao resolve ou reject
+
+      let deu_certo = true;
+
+      if (deu_certo) {
+
+        //primeiro exemplo
+        //resolve(this.ofertas);
+
+        setTimeout(() => resolve(this.ofertas), 10000);
+
+        resolve(this.ofertas);
+      } else {
+        reject({
+          codigo_erro: 404,
+          mensagem_erro: 'Servidor não encontrado'
+        })
+      }
+
+
+
+    })
+      .then((ofertas: Oferta[]) => {
+        //fazer alguma coisa
+        console.log('primeiro then')
+        return ofertas;
+      })
+      .then((ofertas: Oferta[]) => {
+        //fazer alguma coisa
+        console.log('segundo then')
+        return ofertas;
+      });;
   }
 }
