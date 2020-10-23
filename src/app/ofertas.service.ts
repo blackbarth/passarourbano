@@ -39,4 +39,22 @@ export class OfertasService {
       });
   }
 
+  public getComoUsarOfertaPorId(id: number): Promise<string> {
+    return this.http.get(`${URL_API}/como-usar?${id}`)
+      .toPromise()
+      .then((resposta: any) => {
+        console.log(resposta[0].descricao);
+        return resposta[0].descricao;
+      })
+  }
+
+  public getOndeFicaOfertaPorId(id: number): Promise<string> {
+    return this.http.get(`${URL_API}/onde-fica?${id}`)
+      .toPromise()
+      .then((resposta: any) => {
+        console.log(resposta[0].descricao);
+        return resposta[0].descricao;
+      })
+  }
+
 }
