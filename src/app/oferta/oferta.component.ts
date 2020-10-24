@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router'
 import { Oferta } from '../shared/oferta.model';
 import { OfertasService } from '../ofertas.service';
+// import { Observable } from 'rxjs';
+import { Observable } from 'rxjs';
+
 
 
 @Component({
@@ -13,6 +16,7 @@ import { OfertasService } from '../ofertas.service';
 export class OfertaComponent implements OnInit {
   public oferta: Oferta;
 
+
   constructor(private route: ActivatedRoute, private ofertasService: OfertasService) {
 
   }
@@ -21,15 +25,20 @@ export class OfertaComponent implements OnInit {
     this.ofertasService.getOfertaPorId(this.route.snapshot.params['id'])
       .then((oferta: Oferta) => {
         this.oferta = oferta;
-      })
-    //esta forma utilizando snapshot
-    //this.route.snapshot.params['id'];
-
-    // this.route.params.subscribe((parametro: any) => {
-    //   console.log(parametro.id);
-    // })
+      });
 
 
+
+    let tempo = new Observable<string>(observer => {
+      setInterval(() => observer.next(new Date().toString()), 2000);
+
+
+    });
+    tempo.subscribe((intervalo) => {
+      console.log(intervalo);
+    });
   }
+
+
 
 }
