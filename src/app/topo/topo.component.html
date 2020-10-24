@@ -10,7 +10,7 @@
           </a>
         </div>
         <div class="col-md-6">
-          <input type="text" class="form-control" (keyup)="pesquisa($event)" placeholder="Pesquise por ofertas..." />
+          <input type="text" class="form-control" #termoDaPesquisa (keyup)="pesquisa(termoDaPesquisa.value)" placeholder="Pesquise por ofertas..." />
         </div>
         <div class="col-md-2">
           <a a href="#"><img src="/assets/carrinho.png" /></a>
