@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
-import { debounceTime, switchMap } from 'rxjs/operators';
+import { catchError, debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { OfertasService } from '../ofertas.service';
 import { Oferta } from '../shared/oferta.model';
 
@@ -19,12 +19,22 @@ export class TopoComponent implements OnInit {
   ngOnInit(): void {
     this.ofertas = this.subjectPesquisa.pipe(
       debounceTime(1000),
+      distinctUntilChanged(),
       switchMap((termo: string) => {
         console.log('requisicao http para a api', termo);
+        if (termo.trim() === '') {
+          console.log('Array vazio', termo);
+          return new Observable<Oferta[]>();
+        }
         return this.ofertasService.pesquisaOfertas(termo);
       }),
+      catchError(error => {
+        console.log('Caught in CatchError. Returning 0', error);
+        return new Observable<Oferta[]>();
+      })
 
-    )
+    );
+
     this.ofertas.subscribe((ofertas: Oferta[]) => {
       console.log(ofertas);
     })
