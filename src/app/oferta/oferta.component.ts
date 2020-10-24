@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Oferta } from '../shared/oferta.model';
 import { OfertasService } from '../ofertas.service';
 // import { Observable } from 'rxjs';
-import { Observable, Observer, Subscription } from 'rxjs';
+//import { Observable, Observer, Subscription } from 'rxjs';
 
 
 
@@ -15,8 +15,9 @@ import { Observable, Observer, Subscription } from 'rxjs';
 })
 export class OfertaComponent implements OnInit, OnDestroy {
 
-  private tempoObservableSubscription: Subscription;
-  private meuObservableTesteSubscription: Subscription;
+  //exemplo de subscription
+  // private tempoObservableSubscription: Subscription;
+  // private meuObservableTesteSubscription: Subscription;
   public oferta: Oferta;
 
 
@@ -24,8 +25,9 @@ export class OfertaComponent implements OnInit, OnDestroy {
 
   }
   ngOnDestroy(): void {
-    this.meuObservableTesteSubscription.unsubscribe();
-    this.tempoObservableSubscription.unsubscribe();
+    //exemplo de subscription
+    //this.meuObservableTesteSubscription.unsubscribe();
+    //this.tempoObservableSubscription.unsubscribe();
   }
 
   ngOnInit(): void {
@@ -49,26 +51,26 @@ export class OfertaComponent implements OnInit, OnDestroy {
 
     //Segundo Exemplo
     //observable (observavel)
-    let meuObservableTeste = new Observable((observer: Observer<string>) => {
-      observer.next('Primeiro evento da stream');
-      observer.next('Segundo evento da stream');
-      observer.next('Terceiro evento da stream');
-      observer.next('Quarto evento da stream');
+    // let meuObservableTeste = new Observable((observer: Observer<string>) => {
+    //   observer.next('Primeiro evento da stream');
+    //   observer.next('Segundo evento da stream');
+    //   observer.next('Terceiro evento da stream');
+    //   observer.next('Quarto evento da stream');
 
-      //exemplo de erro
-      //observer.error('Algum erro foi encontrado na stream de eventos');
+    //   //exemplo de erro
+    //   //observer.error('Algum erro foi encontrado na stream de eventos');
 
-      //exemple de complete
-      observer.complete();
-    });
+    //   //exemple de complete
+    //   observer.complete();
+    // });
 
 
-    //observable (observador)
-    this.meuObservableTeste = meuObservableTeste.subscribe(
-      (resultado: any) => { console.log(resultado); },
-      (erro: string) => console.log(erro),
-      () => console.log('Stream de eventos foi finalizada')
-    )
+    // //observable (observador)
+    // this.meuObservableTeste = meuObservableTeste.subscribe(
+    //   (resultado: any) => { console.log(resultado); },
+    //   (erro: string) => console.log(erro),
+    //   () => console.log('Stream de eventos foi finalizada')
+    // )
 
 
 
