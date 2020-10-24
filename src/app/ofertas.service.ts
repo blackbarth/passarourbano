@@ -1,8 +1,11 @@
 
 import { Oferta } from './shared/oferta.model';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { URL_API } from './app.api';
+import { Observable } from 'rxjs';
+import { map, retry } from 'rxjs/operators';
+
 
 
 @Injectable()
@@ -15,7 +18,7 @@ export class OfertasService {
 
 
   public getOfertas(): Promise<Oferta[]> {
-    return this.http.get(`${this.url_api}?destaque=true`)
+    return this.http.get(`${URL_API}/ofertas?destaque=true`)
       .toPromise()
       .then((resposta: any) => {
         return resposta;
@@ -23,7 +26,7 @@ export class OfertasService {
 
   }
   public getOfertasPorCategoria(categoria: string): Promise<Oferta[]> {
-    return this.http.get(`${this.url_api}?categoria=${categoria}`)
+    return this.http.get(`${URL_API}/ofertas?categoria=${categoria}`)
       .toPromise()
       .then((resposta: any) => {
         return resposta;
@@ -32,7 +35,7 @@ export class OfertasService {
 
 
   public getOfertaPorId(id: number): Promise<Oferta> {
-    return this.http.get(`${this.url_api}/${id}`)
+    return this.http.get(`${URL_API}/ofertas/${id}`)
       .toPromise()
       .then((resposta: any) => {
         return resposta;
@@ -45,7 +48,7 @@ export class OfertasService {
       .then((resposta: any) => {
         console.log(resposta[0].descricao);
         return resposta[0].descricao;
-      })
+      });
   }
 
   public getOndeFicaOfertaPorId(id: number): Promise<string> {
@@ -54,7 +57,16 @@ export class OfertasService {
       .then((resposta: any) => {
         console.log(resposta[0].descricao);
         return resposta[0].descricao;
-      })
+      });
+  }
+
+  public pesquisaOfertas(termo: string): Observable<Oferta[]> {
+    return this.http.get(`${URL_API}/ofertas?descricao_oferta_like=${termo}`)
+      .pipe(
+        retry(10),
+        map((resposta: any) => resposta)
+      );
+
   }
 
 }
