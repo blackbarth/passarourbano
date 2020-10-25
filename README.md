@@ -72,3 +72,5 @@ ng generate component --skipTests=true home
 ng generate component --skipTests=true rodape
 ```
 
+Criar mapa de rotas
+

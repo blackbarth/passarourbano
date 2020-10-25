@@ -14,6 +14,7 @@ import { Oferta } from '../shared/oferta.model';
 export class TopoComponent implements OnInit {
   private subjectPesquisa: Subject<string> = new Subject();
   public ofertas: Observable<Oferta[]>;
+  public ofertas2: Oferta[];
   constructor(private ofertasService: OfertasService) { }
 
   ngOnInit(): void {
@@ -36,7 +37,7 @@ export class TopoComponent implements OnInit {
     );
 
     this.ofertas.subscribe((ofertas: Oferta[]) => {
-      console.log(ofertas);
+          this.ofertas2 = ofertas;
     })
 
   }
