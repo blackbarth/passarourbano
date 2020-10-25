@@ -14,7 +14,7 @@ import { Oferta } from '../shared/oferta.model';
 export class TopoComponent implements OnInit {
   private subjectPesquisa: Subject<string> = new Subject();
   public ofertas: Observable<Oferta[]>;
-  public ofertas2: Oferta[];
+
   constructor(private ofertasService: OfertasService) { }
 
   ngOnInit(): void {
@@ -22,23 +22,20 @@ export class TopoComponent implements OnInit {
       debounceTime(1000),
       distinctUntilChanged(),
       switchMap((termo: string) => {
-        console.log('requisicao http para a api', termo);
         if (termo.trim() === '') {
-          console.log('Array vazio', termo);
           return new Observable<Oferta[]>();
         }
         return this.ofertasService.pesquisaOfertas(termo);
       }),
       catchError(error => {
-        console.log('Caught in CatchError. Returning 0', error);
         return new Observable<Oferta[]>();
       })
 
     );
 
-    this.ofertas.subscribe((ofertas: Oferta[]) => {
-          this.ofertas2 = ofertas;
-    })
+    // this.ofertas.subscribe((ofertas: Oferta[]) => {
+    //       this.ofertas2 = ofertas;
+    // })
 
   }
 
@@ -47,9 +44,6 @@ export class TopoComponent implements OnInit {
   //   console.log((<HTMLInputElement>event.target).value);
   // }
   public pesquisa(termoDaBusca: string): void {
-    console.log('keyup caracter', termoDaBusca);
     this.subjectPesquisa.next(termoDaBusca);
-
-
   }
 }
