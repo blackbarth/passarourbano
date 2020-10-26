@@ -1,5 +1,11 @@
+
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, LOCALE_ID } from '@angular/core';
+//import { registerLocaleData } from '@angular/common';
+
+
+
+
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
@@ -20,6 +26,12 @@ import { OndeFicaComponent } from './oferta/onde-fica/onde-fica.component';
 
 //pipe customizados
 import { DescricaoReduzida } from './util/descricao-rezumida.pipe';
+import { registerLocaleData } from '@angular/common';
+// implemantaçao language
+import ptBr from '@angular/common/locales/pt';
+import { OrdemCompraComponent } from './ordem-compra/ordem-compra.component';
+registerLocaleData(ptBr);
+
 
 @NgModule({
   declarations: [
@@ -32,7 +44,8 @@ import { DescricaoReduzida } from './util/descricao-rezumida.pipe';
     OfertaComponent,
     ComoUsarComponent,
     OndeFicaComponent,
-    DescricaoReduzida
+    DescricaoReduzida,
+    OrdemCompraComponent
   ],
   imports: [
     BrowserModule,

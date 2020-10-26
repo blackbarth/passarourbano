@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, EMPTY, from, of } from 'rxjs';
 import { catchError, debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { OfertasService } from '../ofertas.service';
 import { Oferta } from '../shared/oferta.model';
@@ -23,12 +23,19 @@ export class TopoComponent implements OnInit {
       distinctUntilChanged(),
       switchMap((termo: string) => {
         if (termo.trim() === '') {
-          return new Observable<Oferta[]>();
+
+          // const o = of<Oferta[]>();
+          const o = of<Oferta[]>([]);
+          // return Observable.of<Oferta[]>([]); // original
+          // return new Observable<Oferta[]>();
+          return o;
+
         }
         return this.ofertasService.pesquisaOfertas(termo);
       }),
       catchError(error => {
-        return new Observable<Oferta[]>();
+        const o = of<Oferta[]>([]);
+        return o;
       })
 
     );
@@ -45,5 +52,10 @@ export class TopoComponent implements OnInit {
   // }
   public pesquisa(termoDaBusca: string): void {
     this.subjectPesquisa.next(termoDaBusca);
+  }
+
+  public limpaPesquisa(): void {
+    console.log('Limpa Pesquisa');
+    this.subjectPesquisa.next('');
   }
 }
