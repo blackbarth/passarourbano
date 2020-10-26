@@ -74,3 +74,13 @@ ng generate component --skipTests=true rodape
 
 Criar mapa de rotas
 
+
+
+instalar modulo popper
+
+```
+np install popper.js --save
+```
+
+
+
