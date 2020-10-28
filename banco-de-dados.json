@@ -255,6 +255,20 @@
       "complemento": "Casa",
       "formaPagamento": "debito",
       "id": 10
+    },
+    {
+      "endereco": "Maria Zilda da Silva",
+      "numero": "456",
+      "complemento": "dsfs",
+      "formaPagamento": "dinheiro",
+      "id": 11
+    },
+    {
+      "endereco": "Osorio Candido da Silva",
+      "numero": "346",
+      "complemento": "Casa",
+      "formaPagamento": "dinheiro",
+      "id": 12
     }
   ]
 }
