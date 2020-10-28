@@ -30,6 +30,7 @@ import { registerLocaleData } from '@angular/common';
 // implemantaçao language
 import ptBr from '@angular/common/locales/pt';
 import { OrdemCompraComponent } from './ordem-compra/ordem-compra.component';
+import { OrdemCompraSucessoComponent } from './ordem-compra-sucesso/ordem-compra-sucesso.component';
 registerLocaleData(ptBr);
 
 
@@ -45,7 +46,8 @@ registerLocaleData(ptBr);
     ComoUsarComponent,
     OndeFicaComponent,
     DescricaoReduzida,
-    OrdemCompraComponent
+    OrdemCompraComponent,
+    OrdemCompraSucessoComponent
   ],
   imports: [
     BrowserModule,

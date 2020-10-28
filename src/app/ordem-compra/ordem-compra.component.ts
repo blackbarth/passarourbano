@@ -1,16 +1,29 @@
 import { Component, OnInit } from '@angular/core';
+import { subscribeOn } from 'rxjs/operators';
+import { OrdemCompraService } from '../services/ordem-compra.service';
+import { Pedido } from '../shared/pedido.models';
+
+
+
 
 @Component({
+  // tslint:disable-next-line: component-selector
   selector: 'app-ordem-compra',
   templateUrl: './ordem-compra.component.html',
-  styleUrls: ['./ordem-compra.component.css']
+  styleUrls: ['./ordem-compra.component.css'],
+  providers: [OrdemCompraService]
 })
 export class OrdemCompraComponent implements OnInit {
 
-  public endereco: string = '';
-  public numero: string = '';
-  public complemento: string = '';
-  public formaPagamento: string = '';
+  public idPedidoCompra: number;
+
+  // pedido
+  public pedido: Pedido = new Pedido('', '', '', '');
+
+  public endereco = '';
+  public numero = '';
+  public complemento = '';
+  public formaPagamento = '';
 
 
 
@@ -18,19 +31,22 @@ export class OrdemCompraComponent implements OnInit {
   public numeroValido: boolean;
   public complementoValido: boolean;
   public formaPagamentoValido: boolean;
-  public formEstado: string = 'disabled';
+  public formEstado = 'disabled';
 
   // estados primitivos dos campos (pristine)
 
-  public enderecoEstadoPrimitivo: boolean = true;
-  public numeroEstadoPrimitivo: boolean = true;
-  public complementoEstadoPrimitivo: boolean = true;
-  public formaPagamentoEstadoPrimitivo: boolean = true;
+  public enderecoEstadoPrimitivo = true;
+  public numeroEstadoPrimitivo = true;
+  public complementoEstadoPrimitivo = true;
+  public formaPagamentoEstadoPrimitivo = true;
 
 
-  constructor() { }
+
+
+  constructor(private ordemCompraService: OrdemCompraService) { }
 
   ngOnInit(): void {
+    // this.ordemCompraService.efetivarCompra();
   }
 
   public atualizaEndereco(endereco: string): void {
@@ -76,6 +92,19 @@ export class OrdemCompraComponent implements OnInit {
       this.formEstado = 'disabled';
     }
 
+  }
+
+  public confirmarCompra(): void {
+    this.pedido.endereco = this.endereco;
+    this.pedido.complemento = this.complemento;
+    this.pedido.numero = this.numero;
+    this.pedido.formaPagamento = this.formaPagamento;
+    console.log('Antes idPedidocompra ' , this.idPedidoCompra)
+    this.ordemCompraService.efetivarCompra(this.pedido)
+    .subscribe((resposta: any)=>{
+      this.idPedidoCompra = resposta.id;
+      console.log('Depois idPedidoCompra ',this.idPedidoCompra);
+    });
   }
 
 }
