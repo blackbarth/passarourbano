@@ -1,8 +1,8 @@
 
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, LOCALE_ID } from '@angular/core';
-//import { FormsModule } from '@angular/forms';
-//import { registerLocaleData } from '@angular/common';
+// import { FormsModule } from '@angular/forms';
+// import { registerLocaleData } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 
 
@@ -26,14 +26,18 @@ import { OndeFicaComponent } from './oferta/onde-fica/onde-fica.component';
 
 
 
-//pipe customizados
+// pipe customizados
 import { DescricaoReduzida } from './util/descricao-rezumida.pipe';
 import { registerLocaleData } from '@angular/common';
 // implemantaçao language
 import ptBr from '@angular/common/locales/pt';
 import { OrdemCompraComponent } from './ordem-compra/ordem-compra.component';
 import { OrdemCompraSucessoComponent } from './ordem-compra-sucesso/ordem-compra-sucesso.component';
+import { CarrinhoService } from './services/carrinho.service';
 registerLocaleData(ptBr);
+
+
+// serviços de carrinho de compra
 
 
 @NgModule({
@@ -52,13 +56,15 @@ registerLocaleData(ptBr);
     OrdemCompraSucessoComponent
   ],
   imports: [
-    BrowserModule,
+
+  BrowserModule,
     HttpClientModule,
     RouterModule.forRoot(ROUTES),
-    //FormsModule,
+    // FormsModule,
     ReactiveFormsModule
+
   ],
-  providers: [{ provide: LOCALE_ID, useValue: 'pt-BR' }],
+  providers: [{ provide: LOCALE_ID, useValue: 'pt-BR' }, CarrinhoService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

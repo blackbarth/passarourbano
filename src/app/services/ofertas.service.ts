@@ -1,4 +1,3 @@
-
 import { Oferta } from '../shared/oferta.model';
 import { HttpClient} from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -10,6 +9,7 @@ import { map, retry } from 'rxjs/operators';
 
 @Injectable()
 export class OfertasService {
+  // tslint:disable-next-line: variable-name
   private url_API = `${URL_API}/ofertas`;
 
   constructor(private http: HttpClient) { }
@@ -29,6 +29,7 @@ export class OfertasService {
     return this.http.get(`${this.url_API}?categoria=${categoria}`)
       .toPromise()
       .then((resposta: any) => {
+        console.log(resposta);
         return resposta;
       });
   }
@@ -46,7 +47,6 @@ export class OfertasService {
     return this.http.get(`${URL_API}/como-usar?${id}`)
       .toPromise()
       .then((resposta: any) => {
-        console.log(resposta[0].descricao);
         return resposta[0].descricao;
       });
   }
@@ -55,7 +55,6 @@ export class OfertasService {
     return this.http.get(`${URL_API}/onde-fica?${id}`)
       .toPromise()
       .then((resposta: any) => {
-        console.log(resposta[0].descricao);
         return resposta[0].descricao;
       });
   }

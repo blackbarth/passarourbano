@@ -23,4 +23,4 @@ export const ROUTES: Routes = [
     ]
   },
   { path: 'ordem-compra', component: OrdemCompraComponent }
-]
+];
